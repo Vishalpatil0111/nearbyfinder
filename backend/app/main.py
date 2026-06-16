@@ -21,33 +21,11 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="NearbyFinder API",
     description="""
-## Nearby Services Finder — Geospatial API
 
-Find hospitals, ATMs, shops and other services near any location using **PostGIS spatial queries**.
 
-### Authentication
-Admin endpoints require a **Bearer JWT token**.
-1. Call `POST /auth/login` with `admingis / admingis123`
-2. Copy the `access_token` from the response
-3. Click **Authorize** above and paste the token
 
-### Public Endpoints
-- `GET /services` — List all services (optional category filter)
-- `GET /services/nearby` — Radius search using PostGIS ST_DWithin
-- `GET /services/{id}` — Get a single service
 
-### Admin Endpoints (JWT required)
-- `POST /services` — Add a service
-- `PUT /services/{id}` — Update a service
-- `DELETE /services/{id}` — Delete a service
 
-### Categories
-`hospital` | `atm` | `shop` | `others`
-
-### Sample Nearby Search
-```
-GET /services/nearby?lat=19.0728&lng=72.8826&radius_km=5
-```
 """,
     version="1.0.0",
     lifespan=lifespan,
