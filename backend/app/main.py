@@ -20,13 +20,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="NearbyFinder API",
-    description="""
-
-
-
-
-
-""",
+    description="Geospatial nearby services API using PostGIS. Find hospitals, ATMs, shops and more.",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -58,7 +52,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://nearbyfinder-tau.vercel.app/",  
+        "https://nearbyfinder-tau.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
