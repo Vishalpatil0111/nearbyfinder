@@ -15,6 +15,7 @@ export default function DashboardPage() {
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [activeFilter, setActiveFilter] = useState("all");
   const router = useRouter();
 
   useEffect(() => {
@@ -52,7 +53,14 @@ export default function DashboardPage() {
     fetchServices();
   };
 
-  const stats = CATEGORIES.map(c => ({ cat: c, count: services.filter(s => s.category === c).length }));
+  const stats = [
+    { cat: "all", count: services.length },
+    ...CATEGORIES.map(c => ({ cat: c, count: services.filter(s => s.category === c).length })),
+  ];
+
+  const filteredServices = activeFilter === "all"
+    ? services
+    : services.filter(s => s.category?.toLowerCase() === activeFilter);
 
   return (
     <div style={{ minHeight: "calc(100vh - 56px)", background: "#f1f5f9" }}>
@@ -74,18 +82,21 @@ export default function DashboardPage() {
 
         <div className="dashboard-padding" style={{ padding: "24px 32px" }}>
         {/* Stats */}
-        <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(160px,1fr))", gap: "14px", marginBottom: "24px" }}>
+        <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(150px,1fr))", gap: "14px", marginBottom: "24px" }}>
           {stats.map(({ cat, count }) => {
-            const color = CATEGORY_COLORS[cat];
+            const color = cat === "all" ? "#3b82f6" : CATEGORY_COLORS[cat];
+            const isActive = activeFilter === cat;
             return (
-              <div key={cat} style={{ background: "#fff", borderRadius: "14px", padding: "16px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)", borderLeft: `4px solid ${color}` }}>
+              <div key={cat} onClick={() => setActiveFilter(cat)} style={{ background: isActive ? color : "#fff", borderRadius: "14px", padding: "16px", boxShadow: isActive ? `0 4px 16px ${color}40` : "0 1px 4px rgba(0,0,0,0.07)", borderLeft: `4px solid ${color}`, cursor: "pointer", transition: "all 0.2s", transform: isActive ? "translateY(-2px)" : "none" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
-                  <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${color}18`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <CategoryIcon category={cat} size={18} />
+                  <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: isActive ? "rgba(255,255,255,0.2)" : `${color}18`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <CategoryIcon category={cat === "all" ? "others" : cat} size={18} color={isActive ? "#fff" : color} />
                   </div>
-                  <span style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a" }}>{count}</span>
+                  <span style={{ fontSize: "24px", fontWeight: 800, color: isActive ? "#fff" : "#0f172a" }}>{count}</span>
                 </div>
-                <div style={{ fontSize: "12px", fontWeight: 600, color: "#64748b", textTransform: "capitalize" }}>{cat}s</div>
+                <div style={{ fontSize: "12px", fontWeight: 600, color: isActive ? "rgba(255,255,255,0.85)" : "#64748b", textTransform: "capitalize" }}>
+                  {cat === "all" ? "All Services" : `${cat}s`}
+                </div>
               </div>
             );
           })}
@@ -167,8 +178,17 @@ export default function DashboardPage() {
         {/* Services Table */}
         <div style={{ background: "#fff", borderRadius: "16px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)", overflow: "hidden" }}>
           <div style={{ padding: "18px 24px", borderBottom: "1px solid #f1f5f9", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <h2 style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: "#0f172a" }}>All Services</h2>
-            <span style={{ fontSize: "13px", color: "#94a3b8" }}>{services.length} entries</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <h2 style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: "#0f172a" }}>
+                {activeFilter === "all" ? "All Services" : `${activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)}s`}
+              </h2>
+              {activeFilter !== "all" && (
+                <button onClick={() => setActiveFilter("all")} style={{ display: "flex", alignItems: "center", gap: "4px", padding: "3px 10px", background: "#f1f5f9", border: "none", borderRadius: "20px", cursor: "pointer", fontSize: "12px", color: "#64748b" }}>
+                  <X size={11} /> Clear
+                </button>
+              )}
+            </div>
+            <span style={{ fontSize: "13px", color: "#94a3b8" }}>{filteredServices.length} entries</span>
           </div>
           <div style={{ overflowX: "auto" }}>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -180,7 +200,7 @@ export default function DashboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {services.map((s) => {
+                {filteredServices.map((s) => {
                   const cat = s.category?.toLowerCase();
                   const color = CATEGORY_COLORS[cat] || "#64748b";
                   return (
@@ -229,7 +249,7 @@ export default function DashboardPage() {
                 })}
               </tbody>
             </table>
-            {services.length === 0 && (
+            {filteredServices.length === 0 && (
               <div style={{ padding: "48px", textAlign: "center", color: "#94a3b8" }}>
                 <MapPin size={40} color="#e2e8f0" style={{ marginBottom: "12px" }} />
                 <p style={{ margin: 0, fontSize: "15px" }}>No services yet. Add your first one!</p>
