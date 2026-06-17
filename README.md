@@ -4,6 +4,22 @@ A full-stack geospatial application that allows users to discover nearby service
 
 ---
 
+## Live Demo
+
+| | URL |
+|---|---|
+| Frontend | https://nearbyfinder-seven.vercel.app |
+| Backend API | https://nearbyfinder-akb2.onrender.com |
+| Swagger Docs | https://nearbyfinder-akb2.onrender.com/docs |
+
+### Admin Credentials
+| Field | Value |
+|---|---|
+| Username | `admingis` |
+| Password | `admingis123` |
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -514,17 +530,6 @@ allow_origins=[
 ```
 
 Redeploy backend after this change.
-
----
-
-## Admin Credentials
-
-| Field | Value |
-|---|---|
-| Username | `admingis` |
-| Password | `admingis123` |
-
-Auto-seeded on first backend startup.
 
 ---
 
