@@ -52,7 +52,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://nearbyfinder-tau.vercel.app",
+        "https://nearbyfinder-seven.vercel.app/",
     ],
     allow_credentials=True,
     allow_methods=["*"],
