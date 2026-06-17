@@ -12,11 +12,12 @@ body { margin: 0; font-family: Inter, Arial, sans-serif; }
   .sidebar-panel {
     position: absolute !important;
     top: 0 !important;
-    right: 0 !important;
+    left: 0 !important;
     bottom: 0 !important;
-    width: 50% !important;
+    width: 65% !important;
     z-index: 50 !important;
-    box-shadow: -4px 0 24px rgba(0,0,0,0.2) !important;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.2) !important;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1) !important;
   }
   .map-container {
     position: absolute !important;

@@ -94,17 +94,18 @@ export default function NearbyPage() {
             <div style={{
               position: isMobile ? "absolute" : "relative",
               top: isMobile ? 0 : "auto",
-              right: isMobile ? 0 : "auto",
+              left: isMobile ? 0 : "auto",
               bottom: isMobile ? 0 : "auto",
-              width: isMobile ? "50%" : "320px",
+              width: isMobile ? "65%" : "320px",
               background: "#f8fafc",
               display: "flex",
               flexDirection: "column",
-              boxShadow: isMobile ? "-4px 0 24px rgba(0,0,0,0.2)" : "2px 0 12px rgba(0,0,0,0.1)",
+              boxShadow: isMobile ? "4px 0 24px rgba(0,0,0,0.2)" : "2px 0 12px rgba(0,0,0,0.1)",
               zIndex: 20,
               overflow: "hidden",
               height: "100%",
               flexShrink: 0,
+              transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)",
             }}>
               <div style={{ padding: "12px 16px", background: "linear-gradient(135deg,#0f172a,#1e3a5f)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span style={{ color: "#fff", fontWeight: 700, fontSize: "14px" }}>
