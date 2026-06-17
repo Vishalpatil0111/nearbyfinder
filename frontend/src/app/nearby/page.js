@@ -91,20 +91,12 @@ export default function NearbyPage() {
         {/* Sidebar — desktop: left panel | mobile: slide from right overlay */}
         {sidebarOpen && results.length > 0 && (
           <>
-            {/* Mobile backdrop */}
-            {isMobile && (
-              <div
-                onClick={() => setSidebarOpen(false)}
-                style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.4)", zIndex: 10 }}
-              />
-            )}
             <div style={{
               position: isMobile ? "absolute" : "relative",
               top: isMobile ? 0 : "auto",
               right: isMobile ? 0 : "auto",
               bottom: isMobile ? 0 : "auto",
-              width: isMobile ? "75%" : "320px",
-              maxWidth: isMobile ? "340px" : "320px",
+              width: isMobile ? "50%" : "320px",
               background: "#f8fafc",
               display: "flex",
               flexDirection: "column",
