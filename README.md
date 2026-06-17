@@ -76,6 +76,24 @@ GISAPP/
 
 Use these to verify the application is working after setup. All examples use the Ashok Nagar, Mumbai sample data.
 
+### Sample Coordinates for Testing
+
+| Location | Latitude | Longitude |
+|---|---|---|
+| Ashok Nagar, Mumbai (center) | `19.0728` | `72.8826` |
+| Chembur, Mumbai | `19.0627` | `72.8993` |
+| Ghatkopar, Mumbai | `19.0863` | `72.9082` |
+
+**Recommended test input:**
+```
+Latitude  : 19.0728
+Longitude : 72.8826
+Radius    : 5
+```
+Paste these directly into the Nearby Search page or Swagger to get results.
+
+---
+
 ### Nearby Search — Test Cases
 
 #### 1. Search all services within 5 km
